@@ -1,0 +1,541 @@
+// colors
+
+$black: #000000;
+$grey-light: #D1D1D1;
+$grey-lightest: #FAFAFA;
+$grey-dark: #3C3C3C;
+$grey: #707070;
+$pink: #F50FB3;
+$pink-light: #FA86D9;
+$pink-hover: #DB0DA0;
+$pink-active: #FF00B6;
+$blue: #000356;
+$blue-hover: #000124;
+$blue-active: #0006A3;
+$blue-light: #33CCFF;
+$blue-lightest: #98E5FF;
+$white: #FFFFFF;
+$white-grey: #FAFAFA;
+$green: #6D9A1A;
+$green-hover: #155408;
+$red: #C30000;
+
+$selection-color:rgba(51, 204, 255, 0.2);
+
+$border-radius: 34px;
+
+// responsive media queries
+
+$mobile-xs: 440px;
+$mobile-small: 575px;
+$mobile: 767px;
+$tablet: 991px;
+$desktop: 1329px;
+
+// transitions
+
+$hover-transition: 0.15s ease-in-out;
+$dropdown-transition: 0.25s ease-in-out;
+
+.shopping-cart-wrapper {
+  .react-datepicker-wrapper {
+    order: 2;
+  }
+
+  .main-header {
+    color: $blue-light;
+    font-size: 50px;
+    font-weight: 600;
+    line-height: 75px;
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  .back-button {
+    height: 31px;
+    background-color: $blue;
+    font-size: 10px;
+    font-weight: 600;
+    line-height: 14px;
+    position: absolute;
+    top: 20px;
+  }
+
+  .next-button {
+    height: 47px;
+    font-size: 14px;
+    line-height: 21px;
+  }
+
+  .shopping-cart-step-list {
+    margin-bottom: 50px;
+    height: 120px;
+
+    @media all and (max-width: $tablet) {
+      margin-bottom: 30px;
+    }
+
+    ul {
+      display: flex;
+      padding: 0;
+      justify-content: center;
+
+      li {
+        list-style-type: none;
+        padding-right: 210px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+
+        &:after {
+          content: "";
+          display: block;
+          background-color: $grey-light;
+          position: absolute;
+          right: 10px;
+          height: 1px;
+          width: 190px;
+        }
+
+        .inner {
+          display: flex;
+          color: $grey;
+          align-items: center;
+          justify-content: center;
+          flex-direction: column;
+          position: relative;
+          height: 80px;
+          width: 130px;
+
+          .value {
+            background-color: $grey-light;
+            border-radius: 100%;
+            height: 42px;
+            width: 42px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: $white;
+            font-weight: 600;
+            font-size: 18px;
+          }
+
+          .text {
+            position: absolute;
+            top: 80px;
+            color: $grey-dark;
+            font-weight: 500;
+            white-space: nowrap;
+
+            @media all and (max-width: $mobile) {
+              display: none;
+            }
+          }
+        }
+
+        &:last-child {
+          padding-right: 0;
+
+          &:after {
+            display: none;
+          }
+        }
+
+        &.active {
+          .inner {
+            display: flex;
+
+            .value {
+              background-color: $pink;
+              color: $white;
+            }
+          }
+        }
+
+        &.filled {
+          .inner {
+            .value {
+              background-color: $black;
+              color: $white;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .shopping-cart-inner-wrapper {
+    padding: 70px 0;
+    background-color: $grey-lightest;
+  }
+
+  .shopping-cart-steps-wrapper {
+    padding-right: 100px;
+  }
+
+  .shopping-cart-summary-wrapper {
+    padding-left: 60px;
+    padding-top: 20px;
+    padding-bottom: 180px;
+    border-left: 1px solid #CCCCCC;
+
+    .shopping-cart-summary-overhead {
+      font-size: 30px;
+      font-weight: 300;
+      color: $pink;
+      margin-bottom: -5px;
+    }
+
+    h1 {
+      margin-bottom: 10px;
+      color: $pink;
+      text-transform: uppercase;
+    }
+
+    ul {
+      list-style-type: none;
+      color: $grey;
+      margin-top: 10px;
+      margin-bottom: 30px;
+    }
+
+    .delivery-address-detail {
+      margin-bottom: 25px;
+    }
+
+    .sub-price {
+      color: $pink;
+      font-size: 20px;
+      font-weight: 600;
+      line-height: 30px;
+      margin-top: -10px;
+      margin-bottom: 30px;
+    }
+
+    .total-price {
+      color: $pink;
+      font-size: 40px;
+      font-weight: 600;
+      line-height: 60px;
+    }
+  }
+
+  .shopping-cart-step_cart {
+    text-align: center;
+
+    .cart-header {
+      margin-bottom: 70px;
+    }
+
+    h4 {
+      margin-bottom: 0;
+    }
+  }
+
+  .cart-flavors-list {
+    display: flex;
+    flex-wrap: wrap;
+
+    label {
+      width: 20%;
+      cursor: pointer;
+      margin-bottom: 65px;
+
+
+    }
+  }
+
+
+  input[type="checkbox"] {
+    display: none;
+
+    +.label-text {
+      display: flex;
+      position: relative;
+
+      &:not(.horizontal) {
+        flex-direction: column;
+        align-items: center;
+        color: $grey-dark;
+        font-weight: 600;
+      }
+
+      &:before {
+        content: "";
+        width: 20px;
+        height: 20px;
+        display: inline-block;
+        border: 2px solid $grey;
+        border-radius: 5px;
+        margin-bottom: 12px;
+      }
+
+      &::after {
+        content: "";
+        display: block;
+        height: 10px;
+        width: 10px;
+        border-radius: 3px;
+        position: absolute;
+        top: 5px;
+      }
+
+      &.horizontal {
+        .text {
+          padding-left: 30px;
+        }
+
+        &::before {
+          margin-bottom: -10px;
+        }
+
+        &::after {
+          left: 5px;
+        }
+      }
+    }
+
+    &:checked {
+
+      +.label-text {
+        &:before {
+          border-color: $blue;
+        }
+
+        &:after {
+          content: "";
+          background-color: $pink;
+          animation: tick 150ms ease-in;
+        }
+      }
+    }
+  }
+
+  .shopping-cart-step_personal-info {
+    .section-label {
+      color: $pink;
+      font-size: 20px;
+      font-weight: 600;
+      line-height: 30px;
+      margin-bottom: 40px;
+      margin-top: 50px;
+    }
+
+    .react-datepicker-ignore-onclickoutside {
+      border: 2px solid $pink;
+      padding: 0 17px;
+      outline: none;
+    }
+
+    input,
+    select {
+      height: 50px;
+      border-radius: 8px;
+      padding: 0 18px;
+      color: $grey-dark;
+      max-width: 372px;
+
+      &::placeholder {
+        color: $grey;
+      }
+
+      &:focus {
+        border: 2px solid $pink;
+        padding: 0 17px;
+        outline: none;
+      }
+    }
+
+    textarea {
+      max-width: 372px;
+      padding: 12px 18px;
+
+      &::placeholder {
+        color: $grey;
+      }
+
+      &:focus {
+        border: 2px solid $pink;
+        padding: 11px 17px;
+        outline: none;
+      }
+    }
+
+    .input-wrapper {
+      label {
+        margin-bottom: 10px;
+        color: $grey;
+      }
+
+      &.error {
+        input, select, textarea {
+          border-color: $red;
+        }
+      }
+    }
+
+    .error {
+      color: $red;
+    }
+
+    input,
+    textarea {
+      font-size: 18px;
+      font-weight: 500;
+      line-height: 27px;
+      border: 1px solid $grey;
+    }
+
+    .select-wrapper {
+      position: relative;
+      max-width: 372px;
+      justify-content: center;
+
+      &:after {
+        content: "";
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 7px 4px 0 4px;
+        border-color: $pink transparent transparent transparent;
+        position: absolute;
+        right: 24px;
+        top: 24px;
+      }
+    }
+
+    select {
+      font-size: 16px;
+      font-weight: 300;
+      line-height: 24px;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+    }
+
+    a {
+      text-decoration: underline;
+      color: $grey;
+    }
+
+    button {
+      margin: 30px auto 0;
+      display: block;
+    }
+  }
+
+  .shopping-cart-step_payment {
+    margin-top: 30px;
+
+    p {
+      margin-bottom: 80px;
+    }
+
+    .payment-wrapper {
+      margin-bottom: 70px;
+
+      .input-wrapper {
+        flex-direction: row;
+        align-items: center;
+
+        input {
+          order: 1;
+          margin-right: 12px;
+        }
+
+        label {
+          order: 2;
+          margin-bottom: 0;
+          color: #707070;
+          font-weight: 300;
+        }
+      }
+    }
+  }
+
+  .error-request-message {
+    border: 3px solid $red;
+    color: $red;
+    font-weight: 500;
+    padding: 10px 15px;
+    display: inline-block;
+
+    i {
+      margin-right: 10px;
+      font-size: 22px;
+    }
+
+    a {
+      text-decoration: underline;
+
+      &:hover {
+        color: $black;
+      }
+    }
+  }
+
+  .shopping-cart-step_confirmation {
+    margin: 0 auto;
+    text-align: center;
+
+    .success-icon {
+      margin-bottom: 40px;
+
+      i {
+        height: 98px;
+        width: 98px;
+        color: $green;
+      }
+    }
+
+    .confirmation-list {
+      margin: 50px 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      margin-left: 20%;
+
+      .confirmation-list-item {
+        display: flex;
+        color: #707070;
+        font-weight: 500;
+        text-align: left;
+        margin-bottom: 10px;
+
+        .confirmation-list-label {
+          font-weight: 600;
+        }
+
+        div {
+          width: 50%;
+        }
+      }
+    }
+
+    .button {
+      height: 50px;
+      font-size: 14px;
+    }
+  }
+
+  .react-datepicker__input-container {
+    input {
+      width: 372px;
+    }
+  }
+}
+
+@keyframes tick {
+  0% {
+    transform: scale(0)
+  }
+
+  90% {
+    transform: scale(1.3)
+  }
+
+  100% {
+    transform: scale(1)
+  }
+}
