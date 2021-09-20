@@ -32,7 +32,7 @@ function Summary({ items, personalInfo, collection }: Props) {
   //   submitOrder({ items: itemList, personalInfo: personalInfos, payment, lang })
   // }, [items, personalInfo, payment, lang, submitOrder])
 
-  const getTotalDays = useMemo(() => {
+  const totalDays = useMemo(() => {
     if (personalInfo.deliveryTime.from.value && personalInfo.deliveryTime.to.value) {
       return (
         differenceInDays(
@@ -49,12 +49,12 @@ function Summary({ items, personalInfo, collection }: Props) {
     [],
   )
 
-  const getDistrict = useMemo(
+  const district = useMemo(
     () => districts.find((item) => personalInfo.deliveryAddress.district.value === item.name),
     [personalInfo.deliveryAddress.district.value],
   )
 
-  const getFlavorsSubtotal = useMemo(
+  const flavorsSubtotal = useMemo(
     () =>
       items
         .slice(1)
@@ -63,18 +63,18 @@ function Summary({ items, personalInfo, collection }: Props) {
     [getFlavorByName, items],
   )
 
-  const getCollectionPriceString = useMemo(() => {
-    switch (getTotalDays) {
+  const collectionPriceString = useMemo(() => {
+    switch (totalDays) {
       case 1:
         return `${collection.price} € / deň`
       case 2:
       case 3:
       case 4:
-        return `${collection.price * getTotalDays} €  (${getTotalDays} dni)`
+        return `${collection.price * totalDays} €  (${totalDays} dni)`
       default:
-        return `${collection.price * getTotalDays} €  (${getTotalDays} dní)`
+        return `${collection.price * totalDays} €  (${totalDays} dní)`
     }
-  }, [collection.price, getTotalDays])
+  }, [collection.price, totalDays])
 
   return (
     <>
@@ -97,7 +97,7 @@ function Summary({ items, personalInfo, collection }: Props) {
           </div>
         )}
         <div className="sub-price">
-          {getTotalDays === 1 ? `${collection.price} € / deň` : getCollectionPriceString}
+          {totalDays === 1 ? `${collection.price} € / deň` : collectionPriceString}
         </div>
         {items.length > 1 && (
           <div>
@@ -107,20 +107,20 @@ function Summary({ items, personalInfo, collection }: Props) {
                 <li key={getFlavorByName(item).name}>{getFlavorByName(item).label}</li>
               ))}
             </ul>
-            <div className="sub-price">{`${getFlavorsSubtotal} €`}</div>
+            <div className="sub-price">{`${flavorsSubtotal} €`}</div>
           </div>
         )}
         <div>
           <h4>Doprava</h4>
           <div className="delivery-address-detail">
-            {personalInfo.deliveryAddress.district.value ? getDistrict?.label : '-'}
+            {personalInfo.deliveryAddress.district.value ? district?.label : '-'}
           </div>
-          <div className="sub-price">{getDistrict ? `${getDistrict?.price} €` : '-'}</div>
+          <div className="sub-price">{district ? `${district?.price} €` : '-'}</div>
         </div>
         <div>
           <h4>SPOLU</h4>
           <div className="total-price">
-            {collection.price * getTotalDays + getFlavorsSubtotal + (getDistrict?.price || 0)} €
+            {collection.price * totalDays + flavorsSubtotal + (district?.price || 0)} €
           </div>
         </div>
       </div>

@@ -32,7 +32,7 @@ function Payment({
       ...personalInfo,
     }
     submitOrder({
-      collection: collection.name,
+      collectionName: collection.name,
       items: itemList,
       personalInfo: personalInfos,
       payment,
