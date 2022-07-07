@@ -184,7 +184,7 @@ export const INITIAL_STATE: PersonalInfoState = {
 //   },
 // }
 
-interface PersonalInfoAction extends Action {
+interface PersonalInfoAction extends Action<typeof CHANGE_PERSONAL_INFO | typeof SET_TOUCHED> {
   fieldType: string
   field: string
   value: string | boolean | Date | [Date, Date] | null

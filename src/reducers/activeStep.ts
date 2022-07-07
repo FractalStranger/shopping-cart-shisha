@@ -5,7 +5,7 @@ import { PROCEED, SUBMIT_ORDER } from '../actions'
 
 export const INITIAL_STATE = 1
 
-interface ActiveStepAction extends Action {
+interface ActiveStepAction extends Action<typeof PROCEED | typeof SUBMIT_ORDER> {
   step: number
 }
 

@@ -29,7 +29,7 @@ type Props = {
     value: string | boolean | Date | [Date, Date] | null,
   ) => void
   setTouched: (fieldType: string, field: string) => void
-  savePersonalInfoFieldsRefs: (fieldsRefs: any) => void
+  savePersonalInfoFieldsRefs: (fieldsRefs: React.MutableRefObject<unknown>) => void
   order: OrderState
   reservations: ReservationState
 }

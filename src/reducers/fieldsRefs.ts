@@ -1,10 +1,15 @@
+import { Action } from 'redux'
 import { SAVE_PERSONAL_INFO_FIELDS_REFS } from '../actions/personalInfo'
 
 export const INITIAL_STATE = {
   personalInfo: {},
 }
 
-const fieldsRefsR = (state = INITIAL_STATE, action: any) => {
+interface FieldsRefAction extends Action<typeof SAVE_PERSONAL_INFO_FIELDS_REFS> {
+  fieldsRefs: React.MutableRefObject<unknown>
+}
+
+const fieldsRefsR = (state = INITIAL_STATE, action: FieldsRefAction) => {
   const { type, fieldsRefs } = action
   switch (type) {
     case SAVE_PERSONAL_INFO_FIELDS_REFS:

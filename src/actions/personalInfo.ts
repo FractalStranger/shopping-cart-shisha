@@ -24,7 +24,7 @@ export function setTouched(fieldType: string, field: string) {
   }
 }
 
-export function savePersonalInfoFieldsRefs(fieldsRefs: any) {
+export function savePersonalInfoFieldsRefs(fieldsRefs: React.MutableRefObject<unknown>) {
   return {
     type: SAVE_PERSONAL_INFO_FIELDS_REFS,
     fieldsRefs,

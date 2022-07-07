@@ -1,4 +1,5 @@
 // import { handleActions } from 'redux-actions';
+import { Action } from 'redux'
 import { handle } from 'redux-pack'
 
 import { SUBMIT_ORDER, GET_ORDER, REQUEST_PAYMENT } from '../actions'
@@ -21,7 +22,12 @@ export const INITIAL_STATE: OrderState = {
   redirectUrl: undefined,
 }
 
-const orderInfo = (state = INITIAL_STATE, action: { type: any; payload: any }) => {
+interface OrderInfoAction
+  extends Action<typeof SUBMIT_ORDER | typeof GET_ORDER | typeof REQUEST_PAYMENT> {
+  payload: any
+}
+
+const orderInfo = (state = INITIAL_STATE, action: OrderInfoAction) => {
   const { type, payload } = action
   // console.log(payload)
   switch (type) {

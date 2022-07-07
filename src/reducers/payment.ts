@@ -1,8 +1,13 @@
+import { Action } from 'redux'
 import { CHANGE_PAYMENT } from '../actions/payment'
 
 export const INITIAL_STATE = 'card'
 
-const payment = (state = INITIAL_STATE, action: any) => {
+interface PaymentAction extends Action<typeof CHANGE_PAYMENT> {
+  value: string
+}
+
+const payment = (state = INITIAL_STATE, action: PaymentAction) => {
   const { type, value } = action
 
   switch (type) {

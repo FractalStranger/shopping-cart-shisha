@@ -14,7 +14,8 @@ export const INITIAL_STATE: CartState = {
   loading: true,
 }
 
-interface CartAction extends Action {
+interface CartAction
+  extends Action<typeof ADD_TO_CART | typeof REMOVE_FROM_CART | typeof SUBMIT_ORDER> {
   name: string
 }
 

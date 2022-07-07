@@ -14,7 +14,7 @@ export const INITIAL_STATE: ReservationState = {
   loading: true,
 }
 
-interface CartAction extends Action {
+interface CartAction extends Action<typeof GET_RESERVATIONS> {
   payload: any
 }
 
