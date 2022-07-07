@@ -3,6 +3,7 @@ import { CHANGE_PERSONAL_INFO, SET_TOUCHED } from '../actions/personalInfo'
 
 export interface PersonalInfoState extends Record<string, Record<string, any>> {
   basic: {
+    [key: string]: any
     email: {
       value: string
       touched: boolean
@@ -20,6 +21,7 @@ export interface PersonalInfoState extends Record<string, Record<string, any>> {
     }
   }
   deliveryAddress: {
+    [key: string]: any
     fullName: {
       value: string
       touched: boolean
@@ -42,6 +44,7 @@ export interface PersonalInfoState extends Record<string, Record<string, any>> {
     }
   }
   deliveryTime: {
+    [key: string]: any
     from: {
       value?: Date
       touched: boolean
@@ -54,6 +57,7 @@ export interface PersonalInfoState extends Record<string, Record<string, any>> {
     }
   }
   consents: {
+    [key: string]: any
     dataProcessing: {
       value: boolean
       touched: boolean
