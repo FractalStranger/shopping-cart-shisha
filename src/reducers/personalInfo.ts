@@ -1,10 +1,8 @@
 import { Action } from 'redux'
 import { CHANGE_PERSONAL_INFO, SET_TOUCHED } from '../actions/personalInfo'
 
-export interface PersonalInfoState {
-  [key: string]: any
+export interface PersonalInfoState extends Record<string, Record<string, any>> {
   basic: {
-    [key: string]: any
     email: {
       value: string
       touched: boolean
@@ -22,7 +20,6 @@ export interface PersonalInfoState {
     }
   }
   deliveryAddress: {
-    [key: string]: any
     fullName: {
       value: string
       touched: boolean
@@ -45,7 +42,6 @@ export interface PersonalInfoState {
     }
   }
   deliveryTime: {
-    [key: string]: any
     from: {
       value?: Date
       touched: boolean
@@ -58,7 +54,6 @@ export interface PersonalInfoState {
     }
   }
   consents: {
-    [key: string]: any
     dataProcessing: {
       value: boolean
       touched: boolean
@@ -127,6 +122,67 @@ export const INITIAL_STATE: PersonalInfoState = {
     },
   },
 }
+
+// export const INITIAL_STATE: PersonalInfoState = {
+//   basic: {
+//     email: {
+//       value: 'email@email.com',
+//       touched: false,
+//       required: true,
+//     },
+//     phoneNr: {
+//       value: '090909090909',
+//       touched: false,
+//       required: true,
+//     },
+//     dateOfBirth: {
+//       value: '2.2.2022',
+//       touched: false,
+//       required: true,
+//     },
+//   },
+//   deliveryAddress: {
+//     fullName: {
+//       value: 'Pán',
+//       touched: false,
+//       required: true,
+//     },
+//     street: {
+//       value: 'Bla bla',
+//       touched: false,
+//       required: true,
+//     },
+//     district: {
+//       value: 'vrakuna',
+//       touched: false,
+//       required: true,
+//     },
+//     customerNote: {
+//       value: 'kupuj',
+//       touched: false,
+//       required: false,
+//     },
+//   },
+//   deliveryTime: {
+//     from: {
+//       value: undefined,
+//       touched: false,
+//       required: true,
+//     },
+//     to: {
+//       value: undefined,
+//       touched: false,
+//       required: true,
+//     },
+//   },
+//   consents: {
+//     dataProcessing: {
+//       value: true, // TODO: false
+//       touched: false,
+//       required: true,
+//     },
+//   },
+// }
 
 interface PersonalInfoAction extends Action {
   fieldType: string

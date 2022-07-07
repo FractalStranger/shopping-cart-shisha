@@ -1,8 +1,10 @@
+import { parseISO } from 'date-fns'
 import React, { useCallback } from 'react'
 import classnames from 'classnames'
 import DatePicker, { registerLocale } from 'react-datepicker'
 import skSK from 'date-fns/locale/sk'
 import OrderShape from '../../shapes/OrderShape'
+import ReservationShape from '../../shapes/ReservationShape'
 
 registerLocale('SK', { ...skSK, options: { ...skSK.options, weekStartsOn: 1 } })
 
@@ -20,6 +22,7 @@ type Props = {
   onCalendarClose?: () => void
   disabled?: boolean
   error?: string
+  reservations: ReservationShape[]
 }
 
 function TimeField({
@@ -36,6 +39,7 @@ function TimeField({
   onCalendarClose,
   disabled = false,
   error,
+  reservations,
 }: Props) {
   // const [minTime, setMinTime] = useState<Date | undefined>()
   const validateField = useCallback(
@@ -71,7 +75,7 @@ function TimeField({
         id={fieldName}
         name={fieldName}
         selected={personalInfo[fieldType][fieldName].value}
-        onChange={(date) => changePersonalInfo(fieldType, fieldName, date)}
+        onChange={(date) => changePersonalInfo(fieldType, fieldName, date as Date)}
         timeCaption="Čas"
         showTimeSelect
         // onInputClick={handleMinTime}
@@ -88,6 +92,11 @@ function TimeField({
         onCalendarClose={onCalendarClose}
         autoComplete="off"
         disabled={disabled}
+        // TODO: exclude only reserved times if there is not whole day reserved
+        excludeDateIntervals={reservations?.map((reservation) => ({
+          start: parseISO(reservation.min),
+          end: parseISO(reservation.max),
+        }))}
       />
       <input
         ref={childRef}

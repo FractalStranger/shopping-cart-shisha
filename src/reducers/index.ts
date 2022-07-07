@@ -7,6 +7,7 @@ import personalInfo from './personalInfo'
 import payment from './payment'
 import orderData from './orderData'
 import fieldsRefs from './fieldsRefs'
+import reservations from './reservations'
 
 export default combineReducers({
   activeStep,
@@ -16,4 +17,5 @@ export default combineReducers({
   payment,
   orderData,
   fieldsRefs,
+  reservations,
 })

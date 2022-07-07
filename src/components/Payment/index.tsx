@@ -1,6 +1,8 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useEffect } from 'react'
 import CollectionShape from '../../shapes/CollectionShape'
 import OrderShape from '../../shapes/OrderShape'
+import { OrderState } from '../../reducers/orderData'
+import { TBPaymentMethodEnum } from '../../shapes/TBPaymentMethod'
 
 type Props = {
   collection: CollectionShape
@@ -12,6 +14,8 @@ type Props = {
   lang: string
   submitOrder: (order: any) => void
   activeStep: number
+  order: OrderState
+  requestPayment: (method: TBPaymentMethodEnum) => void
 }
 
 function Payment({
@@ -24,6 +28,8 @@ function Payment({
   lang,
   submitOrder,
   activeStep,
+  order,
+  requestPayment,
 }: Props) {
   const handleSubmitOrder = useCallback(() => {
     // const itemList = items.map((item: any) => ({ _id: item.item._id, quantity: item.quantity }))
@@ -35,10 +41,23 @@ function Payment({
       collectionName: collection.name,
       items: itemList,
       personalInfo: personalInfos,
-      payment,
       lang,
     })
-  }, [items, personalInfo, submitOrder, collection, payment, lang])
+  }, [items, personalInfo, submitOrder, collection, lang])
+
+  useEffect(() => {
+    handleSubmitOrder()
+  }, [])
+
+  useEffect(() => {
+    if (order.redirectUrl) {
+      window.location.replace(order.redirectUrl)
+    }
+  }, [order])
+
+  if (order.pending) {
+    return <div>Vytvára sa objednávka...</div>
+  }
   return (
     <div className="shopping-cart-step_payment">
       {error && (
@@ -48,7 +67,10 @@ function Payment({
           <a href="#kontakt">kontaktujte nás.</a>
         </p>
       )}
-      {activeStep === 4 ? (
+      {order?.data?.order?.payment?.status === 'pending' && (
+        <p>Platba práve prebieha, počkajte na </p>
+      )}
+      {activeStep === 4 && order?.data?.order?.payment?.status !== 'pending' ? (
         <h3>Prosím počkajte, kým vás presmerujeme na platobnú bránu...</h3>
       ) : (
         <>
@@ -58,21 +80,12 @@ function Payment({
               <strong>{personalInfo.basic.email.value}</strong>.
             </p>
           </div>
-          <div className="payment-wrapper">
-            <div className="input-wrapper">
-              <input
-                id="card"
-                type="radio"
-                name="payment"
-                value="card"
-                checked={payment === 'card'}
-                onChange={(e) => e.target.checked && changePayment(e.target.value)}
-              />
-              <label htmlFor="card">Platba kartou</label>
-            </div>
-          </div>
-          <button type="button" className="next-button" onClick={handleSubmitOrder}>
-            Prejsť na platbu
+          <button
+            type="button"
+            className="tb_card_pay"
+            onClick={() => requestPayment(TBPaymentMethodEnum.TB_CARD_PAY)}
+          >
+            Card pay
           </button>
         </>
       )}

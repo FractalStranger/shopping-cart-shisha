@@ -1,32 +1,16 @@
 {
   "root": true,
-  "extends": [
-    "airbnb",
-    "prettier",
-    "prettier/react",
-    "prettier/@typescript-eslint"
-  ],
+  "extends": ["airbnb", "prettier", "prettier/react", "prettier/@typescript-eslint"],
   "parser": "@typescript-eslint/parser",
-  "plugins": [
-    "prettier",
-    "@typescript-eslint",
-    "react-hooks"
-  ],
+  "plugins": ["prettier", "@typescript-eslint", "react-hooks"],
   "rules": {
     "no-use-before-define": "off",
     "no-underscore-dangle": "off",
     "no-continue": "off",
     "no-unused-vars": "off",
-    "@typescript-eslint/no-unused-vars": [
-      "warn"
-    ],
-    "@typescript-eslint/no-use-before-define": [
-      "error"
-    ],
-    "import/extensions": [
-      1,
-      "never"
-    ],
+    "@typescript-eslint/no-unused-vars": ["warn"],
+    "@typescript-eslint/no-use-before-define": ["error"],
+    "import/extensions": [1, "never"],
     "prettier/prettier": [
       "error",
       {
@@ -53,30 +37,18 @@
     "react/jsx-filename-extension": [
       1,
       {
-        "extensions": [
-          ".ts",
-          ".tsx",
-          ".js",
-          ".jsx"
-        ]
+        "extensions": [".ts", ".tsx", ".js", ".jsx"]
       }
     ],
-    "no-restricted-globals": [
-      "error",
-      "event",
-      "fdescribe"
-    ]
+    "no-restricted-globals": ["error", "event", "fdescribe"],
+    "no-shadow": "off",
+    "@typescript-eslint/no-shadow": ["error"]
   },
   "overrides": [
     {
-      "files": [
-        "**/*.ts",
-        "**/*.tsx"
-      ],
+      "files": ["**/*.ts", "**/*.tsx"],
       "rules": {
-        "no-undef": [
-          "off"
-        ],
+        "no-undef": ["off"],
         "semi": ["error", "never"]
       }
     }
@@ -87,12 +59,7 @@
   "settings": {
     "import/resolver": {
       "node": {
-        "extensions": [
-          ".js",
-          ".jsx",
-          ".ts",
-          ".tsx"
-        ]
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
       }
     }
   }

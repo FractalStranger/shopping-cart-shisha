@@ -20,7 +20,7 @@ export function validateFields(personalInfo: OrderShape['personalInfo']) {
     personalInfo.deliveryTime.from.value > personalInfo.deliveryTime.to.value
   const requiredFulfilled =
     !basicError &&
-    (!personalInfo.differentDeliveryAddress || !deliveryAddressError) &&
+    !deliveryAddressError &&
     !deliveryTimeError &&
     !consentsAcceptedError &&
     !invalidDates

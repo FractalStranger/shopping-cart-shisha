@@ -10,6 +10,8 @@ function mapStateToProps(state: any, ownProps: any) {
     ...ownProps,
     personalInfo: state.personalInfo,
     activeStep: state.activeStep,
+    order: state.orderData,
+    reservations: state.reservations,
   }
 }
 

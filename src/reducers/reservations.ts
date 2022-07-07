@@ -38,7 +38,7 @@ const cart = (state = INITIAL_STATE, action: CartAction) => {
         success: (prevState: any) => {
           return {
             ...prevState,
-            items: payload,
+            items: payload.data,
           }
         },
       })

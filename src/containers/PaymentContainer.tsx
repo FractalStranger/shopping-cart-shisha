@@ -2,7 +2,7 @@ import { connect } from 'react-redux'
 
 import Payment from '../components/Payment'
 
-import { submitOrder } from '../actions'
+import { submitOrder, requestPayment } from '../actions'
 import { changePayment } from '../actions/payment'
 
 function mapStateToProps(state: any, ownProps: any) {
@@ -14,10 +14,12 @@ function mapStateToProps(state: any, ownProps: any) {
     error: state.orderData.error,
     activeStep: state.activeStep,
     lang: state.lang,
+    order: state.orderData,
   }
 }
 
 export default connect(mapStateToProps, {
   changePayment,
   submitOrder,
+  requestPayment,
 })(Payment)

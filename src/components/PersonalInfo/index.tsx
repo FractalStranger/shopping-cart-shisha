@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useRef } from 'react'
 import classnames from 'classnames'
+import { addHours } from 'date-fns'
 import OrderShape from '../../shapes/OrderShape'
 
 import Field from './Field'
@@ -15,6 +16,8 @@ import {
 } from '../../utils/fieldsValidation'
 import TimeField from './TimeField'
 import SelectField from './SelectField'
+import { OrderState } from '../../reducers/orderData'
+import { ReservationState } from '../../reducers/reservations'
 
 type Props = {
   activeStep: number
@@ -27,6 +30,8 @@ type Props = {
   ) => void
   setTouched: (fieldType: string, field: string) => void
   savePersonalInfoFieldsRefs: (fieldsRefs: any) => void
+  order: OrderState
+  reservations: ReservationState
 }
 
 function PersonalInfo({
@@ -36,6 +41,8 @@ function PersonalInfo({
   changePersonalInfo,
   setTouched,
   savePersonalInfoFieldsRefs,
+  order,
+  reservations,
 }: Props) {
   const fieldsRefs = useRef<any>({})
   const fromPickerRef = useRef<any>({})
@@ -55,45 +62,52 @@ function PersonalInfo({
 
   return (
     <div className="shopping-cart-step_personal-info">
+      {order.error && <p>{order.error}</p>}
       <div className="section-label">
         <span>Čas</span>
       </div>
-      <TimeField
-        personalInfo={personalInfo}
-        fieldType="deliveryTime"
-        fieldName="from"
-        fieldLabel={getLabel.from.svk}
-        changePersonalInfo={changePersonalInfo}
-        setTouched={setTouched}
-        childRef={(el: any) => {
-          fieldsRefs.current[`deliveryTime-from`] = el
-        }}
-        minDate={new Date()}
-        maxDate={personalInfo.deliveryTime.to.value}
-        onCalendarClose={() => fromPickerRef.current.setOpen(true)}
-      />
-      <TimeField
-        pickerRef={fromPickerRef}
-        personalInfo={personalInfo}
-        fieldType="deliveryTime"
-        fieldName="to"
-        fieldLabel={getLabel.to.svk}
-        changePersonalInfo={changePersonalInfo}
-        setTouched={setTouched}
-        childRef={(el: any) => {
-          fieldsRefs.current[`deliveryTime-to`] = el
-        }}
-        minDate={personalInfo.deliveryTime.from.value}
-        // maxDate={personalInfo.deliveryTime.to.value} // koľko dopredu?
-        disabled={!personalInfo.deliveryTime.from.value}
-        error={
-          personalInfo.deliveryTime.from.value &&
-          personalInfo.deliveryTime.to.value &&
-          personalInfo.deliveryTime.from.value > personalInfo.deliveryTime.to.value
-            ? 'Čas odovzdania nesmie byť skôr ako čas doručenia'
-            : undefined
-        }
-      />
+      {reservations && (
+        <>
+          <TimeField
+            personalInfo={personalInfo}
+            fieldType="deliveryTime"
+            fieldName="from"
+            fieldLabel={getLabel.from.svk}
+            changePersonalInfo={changePersonalInfo}
+            setTouched={setTouched}
+            childRef={(el: any) => {
+              fieldsRefs.current[`deliveryTime-from`] = el
+            }}
+            minDate={addHours(new Date(), 2)}
+            maxDate={personalInfo.deliveryTime.to.value}
+            onCalendarClose={() => fromPickerRef.current.setOpen(true)}
+            reservations={reservations.items}
+          />
+          <TimeField
+            pickerRef={fromPickerRef}
+            personalInfo={personalInfo}
+            fieldType="deliveryTime"
+            fieldName="to"
+            fieldLabel={getLabel.to.svk}
+            changePersonalInfo={changePersonalInfo}
+            setTouched={setTouched}
+            childRef={(el: any) => {
+              fieldsRefs.current[`deliveryTime-to`] = el
+            }}
+            minDate={personalInfo.deliveryTime.from.value}
+            // maxDate={personalInfo.deliveryTime.to.value} // koľko dopredu?
+            disabled={!personalInfo.deliveryTime.from.value}
+            error={
+              personalInfo.deliveryTime.from.value &&
+              personalInfo.deliveryTime.to.value &&
+              personalInfo.deliveryTime.from.value > personalInfo.deliveryTime.to.value
+                ? 'Čas odovzdania nesmie byť skôr ako čas doručenia'
+                : undefined
+            }
+            reservations={reservations.items}
+          />
+        </>
+      )}
       {/* {personalInfo.deliveryTime.from.value &&
         personalInfo.deliveryTime.to.value &&
         personalInfo.deliveryTime.from.value > personalInfo.deliveryTime.to.value && (

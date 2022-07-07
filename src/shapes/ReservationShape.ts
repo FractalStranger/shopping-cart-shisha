@@ -1,6 +1,6 @@
 interface ReservationShape {
-  from: Date
-  to: Date
+  min: string
+  max: string
 }
 
 export default ReservationShape

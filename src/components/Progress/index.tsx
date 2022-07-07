@@ -29,7 +29,7 @@ function Progress({ activeStep, proceed }: Props) {
         </h1>
       ) : (
         <>
-          {activeStep !== 4 && (
+          {activeStep < 3 && (
             <button
               type="button"
               className="secondary back-button"
